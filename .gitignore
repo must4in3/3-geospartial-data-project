@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+companies_sorted.csv
+189687_423331_compressed_companies_sorted.csv.zip
+economia_locali-pubblico-spettacolo.json
