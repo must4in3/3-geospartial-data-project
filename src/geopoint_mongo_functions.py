@@ -22,8 +22,13 @@ def geocode(table_column_address, lista_vacia):
     for address in table_column_address:
         res = requests.get(f"https://geocode.xyz/{address}", params={"json":1})
         data = res.json()
-        lista_vacia.append({
-            "type":"Point",
-            "coordinates":[float(data["longt"]),float(data["latt"])]
-    })
+        print(data)
+        if data.get('longt'):
+            lista_vacia.append({
+                "type":"Point",
+                "coordinates":[float(data["longt"]),float(data["latt"])]
+        })
+        else:
+            lista_vacia.append(None)
+
 
