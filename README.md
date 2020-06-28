@@ -21,7 +21,7 @@ The company will have the following scheme:
 All employees were asked to show their preferences on where to place the new office.
 In the project we will try to find a place that covers more or less all the following requirements.
 
-1) Designers like to go to design talks and share knowledge. There must be some nearby companies that also do design.
+1) Designers like to share knowledge. There must be some nearby companies that also do design.
 2) Executives like Starbucks A LOT. Ensure there's a starbucks not to far.
 3) Account managers need to travel a lot
 4) All people in the company have between 25 and 40 years, give them some place to go to party.
@@ -64,8 +64,8 @@ https://www.kaggle.com/peopledatalabssf/free-7-million-company-dataset\
 https://dati.comune.milano.it/dataset/ds252-economia-locali-pubblico-spettacolo\
 https://dati.comune.milano.it/dataset/ds634-numeri-civici-coordinate\
 
-*API used*\ 
-https://foursquare.com/\
+*API used* \ 
+https://foursquare.com/ \
 
 *Web scraping with selenium*\
 https://www.starbucks.it/store-locator/search/location/milano
