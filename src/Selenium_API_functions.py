@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 import os
 import requests
+import json
 load_dotenv()
 
 
@@ -19,6 +20,7 @@ def getPage(url):
     driver = webdriver.Chrome(ChromeDriverManager().install())
     driver.get(url)
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    time.sleep(3)
     html = driver.page_source
     soup = BeautifulSoup(html,features="lxml")
     driver.quit()
@@ -46,3 +48,38 @@ def getFromFoursquare(tabla):
         if c_json:
             design_companies_location.append({'name': c_json[0]['name'], 'location': c_json[0]['location']})
     return design_companies_location
+
+
+def getFromFoursquareCategory(idcategory, radio, Milan_coordinate):
+    '''
+    esta funcíon permite hacer una peticíon a la API Foursquare, devolviendo una geolocalizacíon
+    en funcíon de una categoria y de un rayo de busqueda en metros.
+    '''
+    url = 'https://api.foursquare.com/v2/venues/explore'
+    client_id = os.getenv("CLIENT_ID")
+    client_secret = os.getenv("CLIENT_SECRET")
+    params = {
+    'client_id' : client_id,
+    'client_secret' : client_secret,
+    'v' : ' 20200623',
+    'll': f'{Milan_coordinate[0]["coordinates"][1]},{Milan_coordinate[0]["coordinates"][0]}' ,
+    'categoryId': idcategory,
+    'radius': radio,
+    'limit':100
+    }
+    resp = requests.get(url=url, params=params)
+    data = json.loads(resp.text)
+    return data
+
+
+def limpiaRespFoursquareCategory(data):
+    '''
+    esta funcíon permite limpiar los datos del json de API Foursquare, 
+    devolviendo solo las infos que necesito dentro el dictionario.
+    '''
+    category_coordinates = []
+    category_json = data['response']['groups'][0]['items']
+    for i in range(len(category_json)):
+        c_json = category_json[i]['venue']
+        category_coordinates.append({'name': c_json['name'], 'location': c_json['location']})
+    return category_coordinates

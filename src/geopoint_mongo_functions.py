@@ -19,11 +19,12 @@ def transformToGeoPoint(s):
     }
 
 
-def geocode(table_column_address, lista_vacia):
+def geocode(table_column_address):
     '''
     esta funcion me permite devolver la lat y la long 
     en WGS84 geografico, en el formato optimo para enviar Mongo Queries
     '''
+    lista_vacia = []
     for address in table_column_address:
         res = requests.get(f"https://geocode.xyz/{address}", params={"json":1})
         data = res.json()
@@ -34,6 +35,7 @@ def geocode(table_column_address, lista_vacia):
         })
         else:
             lista_vacia.append(None)
+    return lista_vacia
 
 
 def geoQueryNear(point,radius=500):
