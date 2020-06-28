@@ -4,7 +4,7 @@ Project goal: place the **new company offices** in the best place for the compan
 <img src="/output/milan_map.png">
 
 # Overview
-**A video game company has to open a new office. The goal of the project is to identify the best place to install it**
+*A video game company has to open a new office. The goal of the project is to identify the best place to install it*
 
 The company will have the following scheme:
 ​
