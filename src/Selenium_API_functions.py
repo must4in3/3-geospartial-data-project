@@ -20,7 +20,6 @@ def getPage(url):
     driver = webdriver.Chrome(ChromeDriverManager().install())
     driver.get(url)
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-    time.sleep(3)
     html = driver.page_source
     soup = BeautifulSoup(html,features="lxml")
     driver.quit()

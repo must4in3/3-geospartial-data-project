@@ -52,3 +52,4 @@ def geoQueryNear(point,radius=500):
             }
         }
     }
+
