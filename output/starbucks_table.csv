@@ -1,0 +1,10 @@
+,name,location,geopoint
+0,Milan Roastery,Piazza Cordusio 3 Milan 20123,"{'type': 'Point', 'coordinates': [9.1862, 45.46496]}"
+1,Starbucks Porta Romana,"Via Lentasio, 1 angolo Corso di Porta Romana Milano 20122","{'type': 'Point', 'coordinates': [9.19167, 45.45844]}"
+2,Starbucks Durini,"Via Durini, 28 Milan 20121","{'type': 'Point', 'coordinates': [9.19836, 45.46563]}"
+3,Starbucks Turati,"Via Filippo Turati, 25 Milano 20121","{'type': 'Point', 'coordinates': [9.1949, 45.47478]}"
+4,Starbucks Garibaldi,"Corso Garibaldi, 118 Milano 20121","{'type': 'Point', 'coordinates': [9.18336, 45.47405]}"
+5,Starbucks Vercelli,"Piazzale Francesco Baracca, 10 angolo Corso Vercelli Milan 20121","{'type': 'Point', 'coordinates': [9.16487, 45.46626]}"
+6,Starbucks Centrale,"Piazza Luigi di Savoia, 1 Milano 20124","{'type': 'Point', 'coordinates': [9.20784, 45.48631]}"
+7,Starbucks Assago Milanofiori,Viale Milanofiori Centro Commerciale Milanofiori Assago 20090,"{'type': 'Point', 'coordinates': [9.15274, 45.40453]}"
+8,Starbucks Malpensa,Aeroporto Milano Malpensa T1 - Partenze Ferno 21010,"{'type': 'Point', 'coordinates': [9.11615, 45.52215]}"
