@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import requests
+from folium import Marker, CircleMarker, FeatureGroup
 
 
 
@@ -53,3 +54,25 @@ def geoQueryNear(point,radius=500):
         }
     }
 
+def queryMongo(db, collection, query_mongo, projection):
+    '''
+    esta funcíon me permite envíar una query en MongoDB.
+    Hay que definir en los parametros la collection dentro el Dataframe en Mongo,
+    la query y la projection
+    '''
+    cur = db[collection].find(query_mongo,projection)
+    data = list(cur)
+    df = pd.DataFrame(data)
+    return df
+
+def creaMarkerenMapa(pd_dataframe, color, name_column_lat, name_column_lng , list_popup_name_columns, feature_group):
+    '''
+    esta funcion me permite añadir en un mapa de folium los Markers en funcíon de los datos 
+    de cada linea en un Dataframe.   
+    '''
+    for i,row in pd_dataframe.iterrows():
+        CircleMarker((row[f'{name_column_lat}'], row[f'{name_column_lng}']),
+                             color=f'{color}',
+                             fill_color=f'{color}',
+                             popup = (f'{row[f"{list_popup_name_columns[0]}"]}{row[f"{list_popup_name_columns[1]}"]}')
+                             ).add_to(feature_group)
