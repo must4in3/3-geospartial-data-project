@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import requests
 from folium import Marker, CircleMarker, FeatureGroup
+import geopy.distance
 
 
 
@@ -76,3 +77,51 @@ def creaMarkerenMapa(pd_dataframe, color, name_column_lat, name_column_lng , lis
                              fill_color=f'{color}',
                              popup = (f'{row[f"{list_popup_name_columns[0]}"]}{row[f"{list_popup_name_columns[1]}"]}')
                              ).add_to(feature_group)
+
+
+def rankingByAttribute(db, table_Milan, resume_collections, new_db_ranking, new_columns, ponderacíon):
+    '''
+    la funcíon me permite, por cada collection en Mongo, valorar si un edificio en la ciudad de Milan
+    tiene cerca los distintos puntos de interés. En este caso la collection son 5 (Starbucks, Aeropuertos..).
+    Cada resultado lo va añadiendo una lista que luego se asiñará a nueva columna del Dataframe final.
+    db = client.get_database()
+    '''
+    for i, collection in enumerate(resume_collections[0]):
+        print(collection)
+        lista_ranking = []
+        for _,row in table_Milan.iterrows():
+            q = db[collection].find(geoQueryNear(row['geopoint'], radius= resume_collections[0][f'{collection}']))
+            near_offices = len(list(q)) * ponderacíon[i]
+            lista_ranking.append(near_offices)
+        print(len(lista_ranking))
+        new_db_ranking[f'{new_columns[i]}'] = lista_ranking
+    return new_db_ranking
+
+
+def rankingByDistance(db, table_Milan, resume_collections, new_db_ranking, new_columns, ponderacíon):
+    '''
+    la funcíon me permite, por cada collection en Mongo, valorar si un edificio en la ciudad de Milan
+    tiene cerca los distintos puntos de interés, y medir la distancia.
+    Cada resultado lo va añadiendo una lista que luego se asiñará a nueva columna del Dataframe final.
+    '''
+    for i, collection in enumerate(resume_collections[0]):
+        print(i)
+        lista_ranking = []
+        for _,row in table_Milan.iterrows():
+            #print(collection[_])
+            q = db[collection].find(geoQueryNear(row['geopoint'], radius= resume_collections[0][f'{collection}']))
+            res = list(q)
+            ponderacíon_distance = []
+            for x in res:
+                if resume_collections == 'starbucks_table':
+                    ponderacíon_distance.append(geopy.distance.vincenty((row['LAT_WGS84'],row['LONG_WGS84']) , (x['LAT_WGS84'],x['LONG_WGS84'])).km)
+                else:
+                    ponderacíon_distance.append(geopy.distance.vincenty((row['LAT_WGS84'],row['LONG_WGS84']) , (x['geopoint']['coordinates'][1],x['geopoint']['coordinates'][0])).km)
+            if ponderacíon_distance:
+                near_offices = min(ponderacíon_distance)
+            else:
+                near_offices = None
+            lista_ranking.append(near_offices)
+        print(len(lista_ranking))
+        new_db_ranking[f'{new_columns[i]}'] = lista_ranking
+    return new_db_ranking
